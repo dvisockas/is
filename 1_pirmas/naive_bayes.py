@@ -3,21 +3,16 @@ from math import exp, pi, sqrt
 from data import Data
 from collections import defaultdict
 
-train_data, validation_data = Data().get_train_valid()
-
-train_data_by_class = defaultdict(lambda: [])
-for datum in train_data:
-  klass = str(int(datum[-1]))
-  train_data_by_class[klass].append(datum)
-
-classes = list(train_data_by_class.keys())
-features = [0, 1]
+data = Data()
+train_data, validation_data = data.get_train_valid()
+train_data_by_class = data.get_data_by_classes(train_data)
+classes = data.classes()
 
 def get_probablity_of_class(klass):
-  return len(train_data_by_class[str(klass)]) / len(train_data)
+  return len(train_data_by_class[str(int(klass))]) / len(train_data)
 
 def get_nth_x(num_x, klass):
-  return [x[num_x] for x in train_data_by_class[str(klass)]]
+  return [x[num_x] for x in train_data_by_class[str(int(klass))]]
 
 def get_mean(num_x, klass):
   xs = get_nth_x(num_x, klass)
@@ -46,9 +41,5 @@ def get_evidence(input_vector):
 for row in validation_data:
   x1, x2, y = row
   input_vector = [x1, x2]
-  print(f'True label: {y}')
-
-  for klass in classes:
-    pred_for_klass = get_prior(input_vector, klass) / get_evidence(input_vector)
-    print(f'{int(klass)}: {round(pred_for_klass, 2)}')
-  print('----------')
+  class_prediction = get_prior(input_vector, y) / get_evidence(input_vector)
+  print(f'Real: {y}, confidence of prediction: {round(class_prediction, 2)}')
