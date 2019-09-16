@@ -10,10 +10,6 @@ class Data(object):
     self.data = [[float(item) for item in row.split(',')] for row in file_data]
 
   def get_train_valid(self):
-    percentage_train = 0.8
-    return self.data_by_classes()
-
-  def data_by_classes(self):
     percent_train = 0.8
 
     data = defaultdict(lambda: [])
