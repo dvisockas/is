@@ -9,6 +9,10 @@ lr = 0.01
 num_epochs = 1000
 epochs = range(1, num_epochs)
 
+print(f'Training with learning rate {lr} for {num_epochs} epochs')
+print(f'Training samples: {len(train_data)}')
+print(f'Validation samples: {len(validation_data)}')
+
 def output(x1, x2):
   o = x1 * w1 + x2 * w2 + b
   return 1 if o > 0 else -1
