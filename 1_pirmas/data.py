@@ -8,9 +8,10 @@ class Data(object):
   def load(self):
     file_data = open(self.filename).read().split('\n')
     self.data = [[float(item) for item in row.split(',')] for row in file_data]
+    return self.data
 
   def get_train_valid(self):
-    percent_train = 0.4
+    percent_train = 0.8
 
     data = defaultdict(lambda: [])
     for datum in self.data:
