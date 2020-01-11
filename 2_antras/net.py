@@ -1,7 +1,7 @@
 from neuron import Neuron
 
 class Net(object):
-  def __init__(self, inputs, outputs, hidden_dimensions, activation = 'tanh'):
+  def __init__(self, inputs, outputs, hidden_dimensions, activation = 'sigmoid'):
     self.input_size = len(inputs[0])
     self.output_size = len(outputs[0])
     self.hidden_dimensions = hidden_dimensions
@@ -18,7 +18,7 @@ class Net(object):
 
       self.layers.append(layer_neurons)
 
-    self.layers.append([Neuron(dims[-1], activation = 'softmax')])
+    self.layers.append([Neuron(dims[-1], activation = 'tanh')])
 
   def forward(self, input_vector):
     outs = input_vector
